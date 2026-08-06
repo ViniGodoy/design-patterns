@@ -15,7 +15,7 @@ public class UsersPrinter {
     // Borda superior e cabeçalho
     var sb = new StringBuilder();
     sb.repeat(borderChar, 74).append("\n");
-    sb.append(String.format("| %-5s | %-20s | %-22s | %-14s |\n", "ID", "NOME", "EMAIL", "CPF"));
+    sb.append(String.format("| %-5s | %-20s | %-22s | %-14s |%n", "ID", "NOME", "EMAIL", "CPF"));
     sb.repeat(borderChar, 74).append("\n");
     for (var user : users) {
       if (user == null) {
@@ -23,7 +23,7 @@ public class UsersPrinter {
       }
       sb.append(
           String.format(
-              "| %-5s | %-20s | %-22s | %-14s |\n",
+              "| %-5s | %-20s | %-22s | %-14s |%n",
               formatId(user),
               formatName(user),
               validateAndFormatEmail(user),
