@@ -2,13 +2,25 @@ import com.github.spotbugs.snom.Confidence
 import com.github.spotbugs.snom.Effort
 
 plugins {
-    id("java")
+    java
+    application
     id("com.github.spotbugs") version "6.5.10"
     id("com.diffplug.spotless") version "8.9.0"
 }
 
 group = "br.com.pucpr"
 version = "1.0-SNAPSHOT"
+
+
+application {
+    mainClass = "br.pucpr.Main"
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
 
 repositories {
     mavenCentral()
@@ -39,3 +51,5 @@ spotless {
         googleJavaFormat()
     }
 }
+
+
