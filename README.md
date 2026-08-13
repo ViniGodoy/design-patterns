@@ -25,8 +25,10 @@ Quanto aos dados:
 Ao final da implementação reflita:
 
 1. Sua solução ficou com muito código duplicado?
-2. O que aconteceria se uma terceira classe tivesse que ser adicionada?
+    Deveria haver uma classe que fosse responsável por imprimir qualquer objeto.
 
+2. O que aconteceria se uma terceira classe tivesse que ser adicionada?
+    Teria que implementar novamente a impressão, ou seja, mais código duplicado.
 ---
 
 ## 🛠️ Requisitos para Execução
