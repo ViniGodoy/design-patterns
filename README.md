@@ -6,7 +6,7 @@ Que tal refletirmos um pouco sobre o que acontece com esse código quando novos 
 
 ## 🎯 Objetivo da Atividade
 
-Altere o código da classe PlanetasPrinter que os planetas também possam ser impressos.
+Altere o código da classe PlanetasPrinter que os planetas também possam ser impresso. 
 Tente fazer isso com o menor esforço possível.
 
 Verifique a classe [br.pucpr.Planet](https://github.com/ViniGodoy/design-patterns/blob/aula-01-ex/src/main/java/br/pucpr/planet/Planet.java)
@@ -25,8 +25,10 @@ Quanto aos dados:
 Ao final da implementação reflita:
 
 1. Sua solução ficou com muito código duplicado?
-2. O que aconteceria se uma terceira classe tivesse que ser adicionada?
+    Deveria haver uma classe que fosse responsável por imprimir qualquer objeto.
 
+2. O que aconteceria se uma terceira classe tivesse que ser adicionada?
+    Teria que implementar novamente a impressão, ou seja, mais código duplicado.
 ---
 
 ## 🛠️ Requisitos para Execução
