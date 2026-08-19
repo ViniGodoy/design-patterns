@@ -1,9 +1,69 @@
 package br.pucpr.planet;
 
+import br.pucpr.table.TableData;
 import br.pucpr.user.Theme;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlanetasPrinter {
+  public void print(
+          ArrayList<Planet> planets,
+          boolean alignRight,
+          Theme theme) {
+
+    if (planets == null || planets.isEmpty()) {
+      System.out.println("ERRO: Lista de planetas vazia ou nula.");
+      return;
+    }
+
+    var tableData = new TableData() {
+      @Override
+      public String[] headers() {
+        return new String[] {
+                "Nome",
+                "Diâmetro",
+                "Dist. sol (km)",
+                "Dist. sol (ua)",
+                "Tipo"
+        };
+      }
+
+      @Override
+      public int[] columnWidths() {
+        return new int[] {
+                20,
+                10,
+                15,
+                15,
+                10
+        };
+      }
+
+      @Override
+      public List<String[]> rows() {
+        var rows = new ArrayList<String[]>();
+        for (var planet : planets) {
+          if (planet == null) {
+            continue;
+          }
+
+          rows.add(
+                  new String[] {
+                          formatName(planet.name()),
+                          String.format("%,.1f", planet.diameterKm()),
+                          String.format("%,d", planet.sunDistanceKm()),
+                          String.format(
+                                  "%,.2f",
+                                  Planet.kmToAu(planet.sunDistanceKm())),
+                          formatType(planet.type())
+                  });
+        }
+        return rows;
+      }
+    };
+    tableData.print(alignRight, theme);
+  }
+
   private static String formatName(String name) {
     if (name == null || name.isEmpty()) {
       return "NÃO INFORMADO";
@@ -21,48 +81,5 @@ public class PlanetasPrinter {
       case ICE -> "Gelado";
       case DWARF -> "Anão";
     };
-  }
-
-  public void print(ArrayList<Planet> planets, boolean alignRight, Theme theme) {
-    if (planets == null || planets.isEmpty()) {
-      System.out.println("ERRO: Lista de usuários vazia ou nula.");
-      return;
-    }
-    final var borderChar = theme.getBorderChar();
-
-    // Borda superior e cabeçalho
-    final var BORDER_WIDTH = 86;
-    var sb = new StringBuilder();
-    sb.repeat(borderChar, BORDER_WIDTH).append("\n");
-    sb.append(
-        String.format(
-            "| %-20s | %-10s | %-15s | %-15s | %-10s |%n",
-            "Nome", "Diâmetro", "Dist. sol (km)", "Dist. sol (ua)", "Tipo"));
-    sb.repeat(borderChar, BORDER_WIDTH).append("\n");
-    for (var planet : planets) {
-      if (planet == null) {
-        continue;
-      }
-      sb.append(
-          String.format(
-              "| %-20s | %,10.1f | %,15d | %15.02f | %-10s |%n",
-              formatName(planet.name()),
-              planet.diameterKm(),
-              planet.sunDistanceKm(),
-              Planet.kmToAu(planet.sunDistanceKm()),
-              formatType(planet.type())));
-    }
-    // Borda inferior
-    sb.repeat(borderChar, BORDER_WIDTH).append("\n");
-
-    // Espaçamento
-    if (alignRight) {
-      var lines = sb.toString().split("\n");
-      for (var line : lines) {
-        System.out.println("                    " + line);
-      }
-    } else {
-      System.out.print(sb);
-    }
   }
 }
