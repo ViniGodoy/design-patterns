@@ -1,5 +1,11 @@
 package br.pucpr.table;
 
 public interface TableData {
-  // Monte aqui sua interface TableData
+  int rowCount();
+
+  int colCount();
+
+  String header(int col);
+
+  String get(int row, int col);
 }
