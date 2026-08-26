@@ -1,6 +1,6 @@
 package br.pucpr.user;
 
-import br.pucpr.table.TableData;
+import br.pucpr.table.model.TableData;
 import java.util.ArrayList;
 
 public class UsersTableData implements TableData {

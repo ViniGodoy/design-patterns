@@ -8,8 +8,9 @@ import static br.pucpr.table.Theme.LIGHT;
 import br.pucpr.planet.Planet;
 import br.pucpr.planet.PlanetsTableData;
 import br.pucpr.table.Table;
+import br.pucpr.table.model.ColumnTableData;
+import br.pucpr.user.IdColumn;
 import br.pucpr.user.User;
-import br.pucpr.user.UsersTableData;
 import java.util.ArrayList;
 
 public class Main {
@@ -26,7 +27,7 @@ public class Main {
 
     System.out.println("IMPRIMINDO USUARIOS");
     System.out.println("-------------------");
-    new Table(new UsersTableData(usuarios), LIGHT, true).print();
+    new Table(new ColumnTableData<User>(usuarios, new IdColumn()), LIGHT, true).print();
 
     final var planetas = new ArrayList<Planet>();
     planetas.add(new Planet("Mercúrio", 4879, 57_910_000L, ROCK));

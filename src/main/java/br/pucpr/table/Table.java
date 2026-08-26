@@ -1,5 +1,6 @@
 package br.pucpr.table;
 
+import br.pucpr.table.model.TableData;
 import java.util.ArrayList;
 
 public final class Table {
