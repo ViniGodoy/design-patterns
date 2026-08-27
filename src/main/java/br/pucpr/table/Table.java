@@ -44,6 +44,7 @@ public final class Table {
     this.theme = theme;
   }
 
+  @Column(header = "Alinhamento")
   public boolean isAlignRight() {
     return alignRight;
   }

@@ -7,13 +7,16 @@ import static br.pucpr.table.Theme.LIGHT;
 
 import br.pucpr.planet.Planet;
 import br.pucpr.planet.PlanetaColumns;
+import br.pucpr.table.Column;
 import br.pucpr.table.Table;
 import br.pucpr.table.model.ColumnTableData;
 import br.pucpr.user.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class Main {
-  public static void main(String[] args) {
+  public static void main(String[] args)
+      throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     final var usuarios = new ArrayList<User>();
     usuarios.add(
         new User(101L, "Carlos Eduardo de Souza", "carlos.souza@email.com", "12345678901"));
@@ -48,5 +51,15 @@ public class Main {
     System.out.println("IMPRIMINDO PLANETAS");
     System.out.println("-------------------");
     new Table(new ColumnTableData<>(planetas, PlanetaColumns.values())).print();
+
+    // Exemplo de reflexão
+    final var clazz = Table.class;
+    System.out.println(clazz.getName());
+    for (var method : clazz.getDeclaredMethods()) {
+      final var column = method.getAnnotation(Column.class);
+      if (column == null) continue;
+      System.out.println("   " + column.header() + ": " + method.getName());
+    }
+    System.out.println("");
   }
 }
