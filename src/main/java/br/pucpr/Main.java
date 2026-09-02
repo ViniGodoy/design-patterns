@@ -8,8 +8,8 @@ import static br.pucpr.table.Theme.LIGHT;
 import br.pucpr.planet.Planet;
 import br.pucpr.planet.PlanetaColumns;
 import br.pucpr.table.Table;
+import br.pucpr.table.TableBuilder;
 import br.pucpr.table.model.ColumnTableData;
-import br.pucpr.table.reflection.Util;
 import br.pucpr.user.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -54,8 +54,17 @@ public class Main {
 
     System.out.println("PLANETAS REFLETIDOS");
     System.out.println("-------------------");
-    var colunas = Util.inspect(Planet.class);
-    colunas.add(PlanetaColumns.SUN_DISTANCE_AU);
-    new Table(new ColumnTableData<>(planetas, colunas)).print();
+
+    new TableBuilder()
+        .light()
+        .rightAligned()
+        .withData(
+            planetas,
+            c ->
+                c.add(PlanetaColumns.values())
+                    .add(
+                        "Distance (au)",
+                        p -> "%,11.2f".formatted(Planet.kmToAu(p.sunDistanceKm()))))
+        .print();
   }
 }
