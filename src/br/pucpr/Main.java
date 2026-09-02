@@ -36,6 +36,11 @@ public class Main {
             true)
         .print();
 
+    System.out.println();
+    System.out.println("USUARIOS REFLETIDOS");
+    System.out.println("-------------------");
+    new Table(new ColumnTableData<>(usuarios, Util.inspect(User.class))).print();
+
     final var planetas = new ArrayList<Planet>();
     planetas.add(new Planet("Mercúrio", 4879, 57_910_000L, ROCK));
     planetas.add(new Planet("Vênus", 12104, 108_200_000L, ROCK));
