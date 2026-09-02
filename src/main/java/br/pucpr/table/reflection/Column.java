@@ -1,4 +1,4 @@
-package br.pucpr.table;
+package br.pucpr.table.reflection;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

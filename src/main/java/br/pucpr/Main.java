@@ -7,9 +7,9 @@ import static br.pucpr.table.Theme.LIGHT;
 
 import br.pucpr.planet.Planet;
 import br.pucpr.planet.PlanetaColumns;
-import br.pucpr.table.Column;
 import br.pucpr.table.Table;
 import br.pucpr.table.model.ColumnTableData;
+import br.pucpr.table.reflection.Util;
 import br.pucpr.user.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -52,14 +52,10 @@ public class Main {
     System.out.println("-------------------");
     new Table(new ColumnTableData<>(planetas, PlanetaColumns.values())).print();
 
-    // Exemplo de reflexão
-    final var clazz = Table.class;
-    System.out.println(clazz.getName());
-    for (var method : clazz.getDeclaredMethods()) {
-      final var column = method.getAnnotation(Column.class);
-      if (column == null) continue;
-      System.out.println("   " + column.header() + ": " + method.getName());
-    }
-    System.out.println("");
+    System.out.println("PLANETAS REFLETIDOS");
+    System.out.println("-------------------");
+    var colunas = Util.inspect(Planet.class);
+    colunas.add(PlanetaColumns.SUN_DISTANCE_AU);
+    new Table(new ColumnTableData<>(planetas, colunas)).print();
   }
 }
