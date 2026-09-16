@@ -10,6 +10,7 @@ import br.pucpr.planet.PlanetaColumns;
 import br.pucpr.table.Table;
 import br.pucpr.table.TableBuilder;
 import br.pucpr.table.model.ColumnTableData;
+import br.pucpr.table.model.PagedTableData;
 import br.pucpr.user.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -27,14 +28,18 @@ public class Main {
     usuarios.add(new User(105L, "Lucas Mendes", "lucas@email.com", "12345"));
     usuarios.add(new User(106L, "", "beatriz@email.com", "55566677788"));
 
+    final var columns =
+        new ColumnTableData<>(
+            usuarios, new IdColumn(), new CpfColumn(), new EmailColumn(), new NameColumn());
+    var pages = new PagedTableData(columns, 2);
     System.out.println("IMPRIMINDO USUARIOS");
     System.out.println("-------------------");
-    new Table(
-            new ColumnTableData<>(
-                usuarios, new IdColumn(), new CpfColumn(), new EmailColumn(), new NameColumn()),
-            LIGHT,
-            true)
-        .print();
+    final var userTable = new Table(pages, LIGHT);
+
+    pages.addObserver(userTable::print);
+    pages.setPage(1);
+    pages.setPage(2);
+    pages.setPage(0);
 
     final var planetas = new ArrayList<Planet>();
     planetas.add(new Planet("Mercúrio", 4879, 57_910_000L, ROCK));

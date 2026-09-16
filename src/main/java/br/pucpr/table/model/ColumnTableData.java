@@ -1,13 +1,11 @@
 package br.pucpr.table.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class ColumnTableData<T> implements TableData {
   private final List<ColumnData<? super T>> columns;
   private final List<T> data;
+  private final List<DataChangedObserver> observers = new ArrayList<>();
 
   public ColumnTableData(
       Collection<? extends T> data, Collection<? extends ColumnData<? super T>> columns) {
@@ -39,5 +37,20 @@ public class ColumnTableData<T> implements TableData {
   public String get(int row, int col) {
     var line = data.get(row);
     return columns.get(col).get(line);
+  }
+
+  @Override
+  public void addObserver(DataChangedObserver observer) {
+    this.observers.add(observer);
+  }
+
+  public void fireTableDataChanged() {
+    for (var observer : observers) {
+      observer.onTableChange();
+    }
+  }
+
+  public List<T> getData() {
+    return Collections.unmodifiableList(data);
   }
 }
